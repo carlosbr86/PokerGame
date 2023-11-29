@@ -39,7 +39,6 @@ export const pokerToNumericValueTransform = (initialValue) =>
 export const numericToPokerTransform = (hand) => {
   const initialValue = parseInt(hand.slice(0, -1))
   const suit = hand.slice(-1)
-  console.log('suit', suit, 'value', initialValue)
   const pokerValue = typeof (initialValue) === 'number' ? (
     initialValue === 11 ? 'J' :
       initialValue === 12 ? 'Q' :

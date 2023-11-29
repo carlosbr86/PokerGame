@@ -1,6 +1,6 @@
 # Poker App
 
-This is a React application for a poker game, designed to run in a Docker container.
+This is a React application for a Poker Game, designed to run in a Docker container.
 
 ## Table of Contents
 
@@ -10,6 +10,7 @@ This is a React application for a poker game, designed to run in a Docker contai
   - [Installation](#installation)
   - [Running Locally](#running-locally)
   - [Running in Docker](#running-in-docker)
+- [Usage](#usage)
 
 ## Prerequisites
 
@@ -25,9 +26,16 @@ Before you begin, ensure you have met the following requirements:
 
 #Clone the repository:
 
+HTTPS
 ```
 git clone https://github.com/carlosbr86/PokerGame.git
-cd poker-app
+cd PokerGame
+```
+
+SSH
+```
+git@github.com:carlosbr86/PokerGame.git
+cd PokerGame
 ```
 
 #Install dependencies:
@@ -51,3 +59,14 @@ docker build -t poker-app .
 docker run -p 3000:3000 poker-app
 ```
 The app will be available at http://localhost:3000.
+
+##Usage
+
+In this app the user needs to input 2 poker hands and press compare hands.
+
+It's expected that the input follow this format
+```
+3H, 2S, 7H, 10C, JS
+```
+Where the last character represents the card suit(Spade,Clubs,Hearts,Diamond), and the first portion of the string would be the value of that card (2,3,4,5,6,7,8,9,10,J,Q,K)
+

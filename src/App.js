@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { convertAndSortPokerString, countCardValues, numericToPokerTransform } from './helperFunctions'
 import { pokerHandsOrder } from './constants'
+import './App.css';
 
 
 // Function to get numerical value of the card
@@ -85,9 +86,9 @@ const isValidPokerHand = (hand) => {
 
 
 const PokerHandComparer = () => {
-  const [hand1, setHand1] = useState('3h, 2s, 7h, 10c, js');
+  const [hand1, setHand1] = useState('3H, 2S, 7H, 10C, JS');
 
-  const [hand2, setHand2] = useState('2s, 10c, Qh, 7d, Ks');
+  const [hand2, setHand2] = useState('2S, 10C, QH, 7D, KS');
 
   const [result, setResult] = useState('');
 
@@ -102,25 +103,24 @@ const PokerHandComparer = () => {
       const rank2 = getHandRank(formattedHand2, rank1);
       if (rank1 > rank2) {
         // Different hand ranks
-        setResult(`Hand 1 wins, with a ${rank1}`);
+        setResult(`🎉 Hand 1 wins! 🏆\n\n$ with a ${rank1}`);
         return pokerHandsOrder.indexOf(rank1) - pokerHandsOrder.indexOf(rank2);
       } else if (rank2 > rank1) {
-        setResult(`Hand 2 wins, with a ${rank2}`);
+        setResult(`🎉 Hand 2 wins! 🏆\n\n with a ${rank2}`);
         return pokerHandsOrder.indexOf(rank1) - pokerHandsOrder.indexOf(rank2);
       } else {
         // Same hand rank, compare individual cards
         for (let i = 4; i >= 0; i--) {
           const result = compareCards(formattedHand1[i], formattedHand2[i]);
-          console.log('result', result, formattedHand1[i], formattedHand2[i])
           //parse it back the text
           const highestCard1 = numericToPokerTransform(formattedHand1[i]);
           const highestCard2 = numericToPokerTransform(formattedHand2[i]);
 
           if (result > 0) {
-            setResult(`Hand 1 wins, with a ${rank1} breaking the Tie with ${highestCard1} vs ${highestCard2}`);
+            setResult(`🎉 Hand 1 wins! 🏆\n\n${rank1} with a ${highestCard1.toUpperCase()}. Breaking the tie with ${highestCard2.toUpperCase()}. 🃏`);
             return;
           } else if (result < 0) {
-            setResult(`Hand 2 wins, with a ${rank2} breaking the Tie with ${highestCard2} vs ${highestCard1}`);
+            setResult(`🎉 Hand 2 wins! 🏆\n\n${rank2} with a ${highestCard1.toUpperCase()}. Breaking the tie with ${highestCard2.toUpperCase()}. 🃏`);
             return;
           }
         }
@@ -129,15 +129,15 @@ const PokerHandComparer = () => {
 
         return 0;
       }
-    } else setResult('Invalid Hand!');
+    } else setResult('❌Invalid Hand!❌');
   };
 
 
   return (
-    <div>
-      <h1>Poker Hand Comparer</h1>
+    <div className="container">
+      <h1>♠️♥️Poker Hand Comparer♣️♦️</h1>
       <div>
-        <label>Hand 1:</label>
+        <label className="label-left">1st Hand:</label>
         <input
           type="text"
           value={hand1}
@@ -146,7 +146,7 @@ const PokerHandComparer = () => {
         />
       </div>
       <div>
-        <label>Hand 2:</label>
+        <label className="label-left">2nd Hand:</label>
         <input
           type="text"
           value={hand2}
