@@ -10,10 +10,6 @@ const getCardValue = (card) => card.slice(0, -1);
 // Function to compare numeric value of two cards
 const compareCards = (card1, card2) => getCardValue(card1) - getCardValue(card2);
 
-//idea to save
-// const isFullOrFour = (hand) => new Set(hand.map((card) => card.slice(1))).size === 2;
-// const isTwoPairs = isThreeOrTwoPairs && !hasThreeOfAKind
-// const isThreeOrTwoPairs = (hand) => new Set(hand.map((card) => card.slice(1))).size === 3;
 
 // ****************************** RankCheck Functions ****************************//
 // Function to check if a hand has four of a kind
@@ -49,20 +45,14 @@ const isOnePair = (hand) => new Set(hand.map((card) => card.slice(0, -1))).size 
 
 
 // Function to get the rank of a hand
-const getHandRank = (hand, rank: '') => {
+const getHandRank = (hand) => {
   if (isStraight(hand) && isFlush(hand)) return "Straight Flush";
   if (isFourOfAKind(hand)) return "Four of a Kind";
-  if (rank === "Four of a Kind") return ''
   if (hasThreeOfAKind(hand) && hasPair(hand)) return "Full House";
-  if (rank === "Full House") return ''
   if (isFlush(hand)) return "Flush";
-  if (rank === "Flush") return ''
   if (isStraight(hand)) return "Straight";
-  if (rank === "Straight") return ''
   if (hasThreeOfAKind(hand)) return "Three of a Kind";
-  if (rank === "Three of a Kind") return ''
   if (isTwoPairs(hand)) return "Two Pairs";
-  if (rank === "Two Pairs") return ''
   if (isOnePair(hand)) return "Pair";
   return "High Card";
 };

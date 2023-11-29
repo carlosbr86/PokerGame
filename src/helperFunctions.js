@@ -1,7 +1,7 @@
 
 export const convertAndSortPokerString = (inputString) => {
 
-  const inputArray = inputString.toLowerCase().split(',').map(card => card.trim());
+  const inputArray = inputString.split(',').map(card => card.trim());
 
   const convertedArray = inputArray.map(card => {
     const initialValue = card.slice(0, -1);
