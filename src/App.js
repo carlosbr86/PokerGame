@@ -16,7 +16,7 @@ const compareCards = (card1, card2) => getCardValue(card1) - getCardValue(card2)
 const isFourOfAKind = (hand) => Object.values(countCardValues(hand)).includes(4);
 
 //card[0] = Suit
-const isFlush = (hand) => new Set(hand.map((card) => card[0])).size === 1;
+const isFlush = (hand) => new Set(hand.map((card) => card.slice(-1))).size === 1;
 
 const isStraight = (hand) => {
   const handValues = hand.map((card) => getCardValue(card));
@@ -28,7 +28,13 @@ const isStraight = (hand) => {
 };
 
 // Function to check if a hand has three of a kind
-const hasThreeOfAKind = (hand) => Object.values(countCardValues(hand)).includes(3);
+const hasThreeOfAKind = (hand) => {
+  console.log(Object.values(countCardValues(hand)).includes(3))
+  console.log(hand)
+  console.log(Object.values(countCardValues(hand)))
+  return Object.values(countCardValues(hand)).includes(3)
+}
+
 // Function to check if a hand has a pair
 const hasPair = (hand) => Object.values(countCardValues(hand)).includes(2);
 
@@ -85,7 +91,8 @@ const PokerHandComparer = () => {
       const formattedHand2 = convertAndSortPokerString(hand2)
       const rank1 = getHandRank(formattedHand1);
       const rank2 = getHandRank(formattedHand2, rank1);
-      if (rank1 > rank2) {
+      console.log(rank1, rank2)
+      if (pokerHandsOrder.indexOf(rank1) > pokerHandsOrder.indexOf(rank2)) {
         // Different hand ranks
         setResult(`🎉 Hand 1 wins with a ${rank1}! 🏆 `);
         return pokerHandsOrder.indexOf(rank1) - pokerHandsOrder.indexOf(rank2);

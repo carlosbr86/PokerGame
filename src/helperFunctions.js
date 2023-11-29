@@ -1,7 +1,7 @@
 
 export const convertAndSortPokerString = (inputString) => {
-
-  const inputArray = inputString.split(',').map(card => card.trim());
+  console.log(inputString, 'inputString')
+  const inputArray = inputString.toLowerCase().split(',').map(card => card.trim());
 
   const convertedArray = inputArray.map(card => {
     const initialValue = card.slice(0, -1);
@@ -23,28 +23,31 @@ export const convertAndSortPokerString = (inputString) => {
 export const countCardValues = (hand) => {
   const counts = {};
   for (const card of hand) {
-    const value = card.slice(1);
+    const value = card.slice(0, -1);
     counts[value] = (counts[value] || 0) + 1;
   }
   return counts;
 };
 
-export const pokerToNumericValueTransform = (initialValue) =>
-  isNaN(initialValue) ? (
-    initialValue === 'j' ? 11 :
-      initialValue === 'q' ? 12 :
-        initialValue === 'k' ? 13 : 14) :
-    parseInt(initialValue)
+export const pokerToNumericValueTransform = (initialValue) => {
+  if (isNaN(initialValue)) {
+    if (initialValue === 'j') return 11
+    if (initialValue === 'q') return 12
+    if (initialValue === 'k') return 13
+    if (initialValue === 'a') return 14
+  } else return parseInt(initialValue)
+}
 
 export const numericToPokerTransform = (hand) => {
   const initialValue = parseInt(hand.slice(0, -1))
+  let value = initialValue
   const suit = hand.slice(-1)
-  const pokerValue = typeof (initialValue) === 'number' ? (
-    initialValue === 11 ? 'J' :
-      initialValue === 12 ? 'Q' :
-        initialValue === 13 ? 'K' :
-          initialValue === 14 ? 'A' : initialValue) :
-    initialValue
-  return (pokerValue + suit)
+  if (typeof (initialValue) === 'number') {
+    if (initialValue === 11) value = 'j'
+    if (initialValue === 12) value = 'q'
+    if (initialValue === 13) value = 'k'
+    if (initialValue === 14) value = 'a'
+  }
+  return (value + suit)
 }
 
