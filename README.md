@@ -27,7 +27,7 @@ Before you begin, ensure you have met the following requirements:
 
 ### Installation
 
-#Clone the repository:
+##Clone the repository:
 
 HTTPS
 ```
@@ -41,29 +41,29 @@ git@github.com:carlosbr86/PokerGame.git
 cd PokerGame
 ```
 
-#Install dependencies:
+## Install dependencies:
 ```
 npm install
 ```
-#Running Locally
+## Running Locally
 To run the app locally, use the following command:
 ```
 npm start
 ```
 The app will be available at http://localhost:3000.
 
-#Running in Docker
+## Running in Docker
 Build the Docker image:
 ```
 docker build -t poker-app .
 ```
-#Run the Docker container:
+## Run the Docker container:
 ```
 docker run -p 3000:3000 poker-app
 ```
 The app will be available at http://localhost:3000.
 
-##Usage
+## Usage
 
 In this app the user needs to input 2 poker hands and press compare hands.
 

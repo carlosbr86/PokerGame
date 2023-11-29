@@ -59,10 +59,6 @@ const getHandRank = (hand) => {
 
 const isValidPokerHand = (hand) => {
   const pokerHandRegex = /^([2-9]|10|[jqka])[cdhs]$/i;
-
-  //repeated card when combining the 2 hands, not more than 3.
-  //out of validNumeric or valid Suit values
-  // Split the hand into individual cards and check each one
   const cards = hand.split(',').map(card => card.trim());
   if (cards.length !== 5) return false
   for (const card of cards) {
@@ -70,14 +66,12 @@ const isValidPokerHand = (hand) => {
       return false; // Invalid card found
     }
   }
-
   return true; // All cards are valid
 }
 
 
 const PokerHandComparer = () => {
-  const [hand1, setHand1] = useState('3H, 2S, 7H, 10C, JS');
-
+  const [hand1, setHand1] = useState('3H, 2S, 7H, 10C, JS');//Initial State, easier testing
   const [hand2, setHand2] = useState('2S, 10C, QH, 7D, KS');
 
   const [result, setResult] = useState('');
