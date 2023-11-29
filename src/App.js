@@ -103,10 +103,10 @@ const PokerHandComparer = () => {
       const rank2 = getHandRank(formattedHand2, rank1);
       if (rank1 > rank2) {
         // Different hand ranks
-        setResult(`🎉 Hand 1 wins! 🏆\n\n$ with a ${rank1}`);
+        setResult(`🎉 Hand 1 wins with a ${rank1}! 🏆 `);
         return pokerHandsOrder.indexOf(rank1) - pokerHandsOrder.indexOf(rank2);
       } else if (rank2 > rank1) {
-        setResult(`🎉 Hand 2 wins! 🏆\n\n with a ${rank2}`);
+        setResult(`🎉 Hand 2 wins with a ${rank2}! 🏆 `);
         return pokerHandsOrder.indexOf(rank1) - pokerHandsOrder.indexOf(rank2);
       } else {
         // Same hand rank, compare individual cards
@@ -117,10 +117,10 @@ const PokerHandComparer = () => {
           const highestCard2 = numericToPokerTransform(formattedHand2[i]);
 
           if (result > 0) {
-            setResult(`🎉 Hand 1 wins! 🏆\n\n${rank1} with a ${highestCard1.toUpperCase()}. Breaking the tie with ${highestCard2.toUpperCase()}. 🃏`);
+            setResult(`🎉 Hand 1 wins! 🏆${rank1} with a ${highestCard1.toUpperCase()} as highest card. Breaking the tie with ${highestCard2.toUpperCase()}. 🃏`);
             return;
           } else if (result < 0) {
-            setResult(`🎉 Hand 2 wins! 🏆\n\n${rank2} with a ${highestCard1.toUpperCase()}. Breaking the tie with ${highestCard2.toUpperCase()}. 🃏`);
+            setResult(`🎉 Hand 2 wins! 🏆${rank2} with a ${highestCard2.toUpperCase()}  as highest card. Breaking the tie with ${highestCard1.toUpperCase()}. 🃏`);
             return;
           }
         }
@@ -137,7 +137,7 @@ const PokerHandComparer = () => {
     <div className="container">
       <h1>♠️♥️Poker Hand Comparer♣️♦️</h1>
       <div>
-        <label className="label-left">1st Hand:</label>
+        <label className="align-left">1st Hand:</label>
         <input
           type="text"
           value={hand1}
@@ -146,7 +146,7 @@ const PokerHandComparer = () => {
         />
       </div>
       <div>
-        <label className="label-left">2nd Hand:</label>
+        <label className="align-left">2nd Hand:</label>
         <input
           type="text"
           value={hand2}
@@ -155,8 +155,8 @@ const PokerHandComparer = () => {
         />
       </div>
       <button onClick={() => compareHands({ hand1, hand2 })}>Compare Hands</button>
-      <div>
-        <h2>Result:</h2>
+      <div >
+        <h2>{result ? "Result:" : ''}</h2>
         <p>{result}</p>
       </div>
     </div>
