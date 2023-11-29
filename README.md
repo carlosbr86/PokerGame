@@ -2,6 +2,9 @@
 
 This is a React application for a Poker Game, designed to run in a Docker container.
 
+<img width="584" alt="Screen Shot 2023-11-28 at 9 13 34 PM" src="https://github.com/carlosbr86/PokerGame/assets/26756719/c39eab1f-19e7-450f-90a3-bf34620c4436">
+
+
 ## Table of Contents
 
 
