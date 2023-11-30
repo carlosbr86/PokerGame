@@ -1,53 +1,14 @@
 import React, { useState } from 'react';
-import { convertAndSortPokerString, countCardValues, numericToPokerTransform } from './helperFunctions'
+import { convertAndSortPokerString, countCardValues, numericToPokerTransform, compareCards } from './helperFunctions'
 import { pokerHandsOrder } from './constants'
+import { isStraight, isFlush, isFourOfAKind, hasThreeOfAKind, hasPair, isTwoPairs, isOnePair } from './rankCheckFunctions'
 import './App.css';
 
 
-// Function to get numerical value of the card
-const getCardValue = (card) => card.slice(0, -1);
-
-// Function to compare numeric value of two cards
-const compareCards = (card1, card2) => getCardValue(card1) - getCardValue(card2);
 
 
-// ****************************** RankCheck Functions ****************************//
-// Function to check if a hand has four of a kind
-const isFourOfAKind = (hand) => Object.values(countCardValues(hand)).includes(4);
 
-//card[0] = Suit
-const isFlush = (hand) => new Set(hand.map((card) => card.slice(-1))).size === 1;
 
-const isStraight = (hand) => {
-  const handValues = hand.map((card) => getCardValue(card));
-  handValues.sort((a, b) => a - b);// can be removed
-  for (let i = 0; i < handValues.length - 1; i++) {
-    if (handValues[i + 1] - handValues[i] !== 1) return false
-  }
-  return true;
-};
-
-// Function to check if a hand has three of a kind
-const hasThreeOfAKind = (hand) => {
-  console.log(Object.values(countCardValues(hand)).includes(3))
-  console.log(hand)
-  console.log(Object.values(countCardValues(hand)))
-  return Object.values(countCardValues(hand)).includes(3)
-}
-
-// Function to check if a hand has a pair
-const hasPair = (hand) => Object.values(countCardValues(hand)).includes(2);
-
-// Function to check if a hand has two pairs
-const isTwoPairs = (hand) => {
-  const counts = countCardValues(hand);
-  const pairCounts = Object.values(counts).filter((count) => count === 2);
-  return pairCounts.length === 2;
-};
-
-const isOnePair = (hand) => new Set(hand.map((card) => card.slice(0, -1))).size === 4;
-
-// ****************************************************************************//
 
 
 // Function to get the rank of a hand
@@ -90,20 +51,21 @@ const PokerHandComparer = () => {
       const formattedHand1 = convertAndSortPokerString(hand1)
       const formattedHand2 = convertAndSortPokerString(hand2)
       const rank1 = getHandRank(formattedHand1);
-      const rank2 = getHandRank(formattedHand2, rank1);
-      console.log(rank1, rank2)
-      if (pokerHandsOrder.indexOf(rank1) > pokerHandsOrder.indexOf(rank2)) {
+      const rank2 = getHandRank(formattedHand2);
+      const rankValue1 = pokerHandsOrder.indexOf(rank1)
+      const rankValue2 = pokerHandsOrder.indexOf(rank2)
+
+      if (rankValue1 > rankValue2) {
         // Different hand ranks
         setResult(`🎉 Hand 1 wins with a ${rank1}! 🏆 `);
         return pokerHandsOrder.indexOf(rank1) - pokerHandsOrder.indexOf(rank2);
-      } else if (rank2 > rank1) {
+      } else if (rankValue2 > rankValue1) {
         setResult(`🎉 Hand 2 wins with a ${rank2}! 🏆 `);
         return pokerHandsOrder.indexOf(rank1) - pokerHandsOrder.indexOf(rank2);
       } else {
         // Same hand rank, compare individual cards
         for (let i = 4; i >= 0; i--) {
           const result = compareCards(formattedHand1[i], formattedHand2[i]);
-          //parse it back the text
           const highestCard1 = numericToPokerTransform(formattedHand1[i]);
           const highestCard2 = numericToPokerTransform(formattedHand2[i]);
 
@@ -116,7 +78,7 @@ const PokerHandComparer = () => {
           }
         }
         // If all cards are equal, it's a tie
-        setResult('Tie!');
+        setResult(`Tie: ${rank1}!`);
 
         return 0;
       }

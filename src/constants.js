@@ -1,6 +1,6 @@
 export const pokerHandsOrder = [
   'High Card',//number highest 50.12% - Draw: Highest Value
-  'One Pair',//number similarity (2 of 5 ) 42.25% - Draw: Highest Value
+  'Pair',//number similarity (2 of 5 ) 42.25% - Draw: Highest Value
   'Two Pairs',//number similarity (2 of 5 + 2 of 5) 4.75%
   'Three of a Kind', ,//number similarity (3 of 5) 2.11%
   'Straight', //number sequence  0.39%
