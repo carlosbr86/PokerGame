@@ -22,13 +22,13 @@ export const convertAndSortPokerString = (inputString) => {
     const initialValue = card.slice(0, -1);
     const value = pokerToNumericValueTransform(initialValue)
     const suit = card.slice(-1);
-    return value + suit;
+    return `${value}${suit}`; // improvement interpolation
   });
 
   const sortedArray = convertedArray.sort((a, b) => {
     const valueA = parseInt(a.slice(0, -1));
     const valueB = parseInt(b.slice(0, -1));
-    return valueA - valueB;
+    return valueA - valueB; //ascending order
   });
 
   return sortedArray;

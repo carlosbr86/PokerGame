@@ -3,16 +3,9 @@ import { convertAndSortPokerString, countCardValues, numericToPokerTransform, co
 import { pokerHandsOrder } from './constants'
 import { isStraight, isFlush, isFourOfAKind, hasThreeOfAKind, hasPair, isTwoPairs, isOnePair } from './rankCheckFunctions'
 import './App.css';
-
-
-
-
-
-
-
-
+//improvement cleanup Warnings - TypeScript
 // Function to get the rank of a hand
-const getHandRank = (hand) => {
+const getHandRank = (hand) => { //improvement move to helper functions
   if (isStraight(hand) && isFlush(hand)) return "Straight Flush";
   if (isFourOfAKind(hand)) return "Four of a Kind";
   if (hasThreeOfAKind(hand) && hasPair(hand)) return "Full House";
@@ -24,7 +17,7 @@ const getHandRank = (hand) => {
   return "High Card";
 };
 
-const isValidPokerHand = (hand) => {
+const isValidPokerHand = (hand) => { //improvement move to helper functions
   const pokerHandRegex = /^([2-9]|10|[jqka])[cdhs]$/i;
   const cards = hand.split(',').map(card => card.trim());
   if (cards.length !== 5) return false
@@ -47,7 +40,7 @@ const PokerHandComparer = () => {
   const compareHands = ({ hand1, hand2 }) => {
     let isValid = isValidPokerHand(hand1)
     isValid = isValid && isValidPokerHand(hand2)
-    if (isValid) {
+    if (isValid) { //improvement value names
       const formattedHand1 = convertAndSortPokerString(hand1)
       const formattedHand2 = convertAndSortPokerString(hand2)
       const rank1 = getHandRank(formattedHand1);
@@ -64,7 +57,7 @@ const PokerHandComparer = () => {
         return pokerHandsOrder.indexOf(rank1) - pokerHandsOrder.indexOf(rank2);
       } else {
         // Same hand rank, compare individual cards
-        for (let i = 4; i >= 0; i--) {
+        for (let i = 4; i >= 0; i--) { //improvement move this logic to separate function
           const result = compareCards(formattedHand1[i], formattedHand2[i]);
           const highestCard1 = numericToPokerTransform(formattedHand1[i]);
           const highestCard2 = numericToPokerTransform(formattedHand2[i]);
