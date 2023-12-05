@@ -34,8 +34,6 @@ export const convertAndSortPokerString = (inputString) => {
   return sortedArray;
 }
 
-
-
 // Function returns a number equivalent to the poker value.
 export const pokerToNumericValueTransform = (initialValue) => {
   if (isNaN(initialValue)) {
