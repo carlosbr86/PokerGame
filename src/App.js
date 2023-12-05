@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
-import { convertAndSortPokerString, countCardValues, numericToPokerTransform, compareCards } from './helperFunctions'
+import { convertAndSortPokerString, numericToPokerTransform, compareCards } from './helperFunctions'
 import { pokerHandsOrder } from './constants'
 import { isStraight, isFlush, isFourOfAKind, hasThreeOfAKind, hasPair, isTwoPairs, isOnePair } from './rankCheckFunctions'
 import './App.css';
-
-
-
-
-
-
+import HandInput from './HandInput/HandInput.js'
 
 
 // Function to get the rank of a hand
@@ -89,24 +84,8 @@ const PokerHandComparer = () => {
   return (
     <div className="container">
       <h1>♠️♥️Poker Hand Comparer♣️♦️</h1>
-      <div>
-        <label className="align-left">1st Hand:</label>
-        <input
-          type="text"
-          value={hand1}
-          onChange={(e) => setHand1(e.target.value)}
-          placeholder="Enter hand 1"
-        />
-      </div>
-      <div>
-        <label className="align-left">2nd Hand:</label>
-        <input
-          type="text"
-          value={hand2}
-          onChange={(e) => setHand2(e.target.value)}
-          placeholder="Enter hand 2"
-        />
-      </div>
+      <HandInput handString={hand1} setHand={setHand1} handLabel='1st' />
+      <HandInput handString={hand2} setHand={setHand2} handLabel='2nd' />
       <button onClick={() => compareHands({ hand1, hand2 })}>Compare Hands</button>
       <div >
         <h2>{result ? "Result:" : ''}</h2>
